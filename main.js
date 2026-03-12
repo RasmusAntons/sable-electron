@@ -110,13 +110,22 @@ app.whenReady().then(() => {
     // this might request the notification permission if it isn't already granted
     new Notification();
 
-    const allowedPermissions = new Set(['media', 'speaker-selection', 'notifications', 'display-capture', 'background-sync']);
+    const allowedPermissions = new Set([
+        'media', 'speaker-selection', 'notifications', 'display-capture', 'background-sync',
+        'fullscreen', 'automatic-fullscreen'
+    ]);
     session.defaultSession.setPermissionCheckHandler((webContents, permission) => {
+        if (!allowedPermissions.has(permission)) {
+            console.error('failed permission check for', permission);
+        }
         return allowedPermissions.has(permission);
     })
 
     session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
         const url = new URL(webContents.getURL());
+        if (!allowedPermissions.has(permission)) {
+            console.error('failed permission request for', permission);
+        }
         callback(url.protocol === 'app:' && allowedPermissions.has(permission));
     });
 
