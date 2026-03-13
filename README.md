@@ -3,20 +3,17 @@
 An electron wrapper for [Sable](https://github.com/SableClient/Sable) based on [Sable-Client-Electron](https://github.com/7w1/Sable-Client-Electron)
 that uses a local build of Sable and fixes system notifications (on my machine 😅).
 
-## building and running
+## building
 
-I still need to figure out how to build and package the electron app.
+I only tested this on Linux, Windows and Mac will need a configuration in package.json and might require more adaptations.
 
-The current process looks like this:
+Build dependencies (arch packages): `pnpm`, `fnm`, `libxcrypt-compat`
 
-build Sable
+By default, an AppImage and a .deb archive will be built:
 ```bash
-cd sable
-pnpm run build && cp -r public/res/ dist/public/
-cd ..
-```
-
-run sable-electron
-```bash
-pnpm start
+git clone --recursive https://github.com/RasmusAntons/sable-electron.git
+cd sable-electron
+fnm use $(cat sable/.node-version)
+pnpm i
+pnpm run build
 ```

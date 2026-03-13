@@ -21,6 +21,15 @@ if (!app.requestSingleInstanceLock()) {
     app.quit();
 }
 
+const getResourcePath = (filename) => {
+    console.log('looking for', filename, 'app.isPackaged', app.isPackaged, 'process.resourcesPath', process.resourcesPath);
+    if (app.isPackaged) {
+        return path.join(process.resourcesPath, filename);
+    } else {
+        return path.join(__dirname, filename)
+    }
+}
+
 protocol.registerSchemesAsPrivileged([
     {scheme: 'app', privileges: {standard: true, secure: true, supportFetchAPI: true, allowServiceWorkers: true}}
 ]);
@@ -30,11 +39,16 @@ const createWindow = () => {
         width: 1200,
         height: 600,
         title: "Sable Client",
-        icon: path.join(__dirname, 'favicon.png'),
+        icon: getResourcePath('favicon.png'),
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
             preload: path.join(__dirname, 'preload.js'),
+        }
+    });
+    mainWindow.webContents.on('before-input-event', (event, input) => {
+        if (input.control && input.shift && input.key === 'I') {
+            mainWindow.webContents.toggleDevTools();
         }
     });
     mainWindow.on('closed', () => {
@@ -59,7 +73,7 @@ const createWindow = () => {
 
 function createTray() {
     try {
-        tray = new Tray(path.join(__dirname, 'tray-icon.png'));
+        tray = new Tray(getResourcePath('tray-icon.png'));
         const contextMenu = Menu.buildFromTemplate([
             {
                 label: 'Open Sable Client', click: () => {
