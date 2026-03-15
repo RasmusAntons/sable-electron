@@ -14,7 +14,7 @@
   "license": "AGPL-3.0",
   "packageManager": "pnpm@10.32.0",
   "devDependencies": {
-    "electron": "^41.0.0",
+    "electron": "^41.0.2",
     "electron-builder": "^26.8.1"
   },
   "build": {
@@ -31,7 +31,10 @@
     ],
     "linux": {
       "icon": "favicon.png",
-      "target": ["AppImage", "deb"],
+      "target": [
+        "AppImage",
+        "deb"
+      ],
       "category": "Chat"
     }
   }
