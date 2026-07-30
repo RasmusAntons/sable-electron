@@ -126,7 +126,7 @@ app.whenReady().then(() => {
 
     const allowedPermissions = new Set([
         'media', 'speaker-selection', 'notifications', 'display-capture', 'background-sync',
-        'fullscreen', 'automatic-fullscreen'
+        'fullscreen', 'automatic-fullscreen', 'clipboard-sanitized-write'
     ]);
     session.defaultSession.setPermissionCheckHandler((webContents, permission) => {
         if (!allowedPermissions.has(permission)) {
