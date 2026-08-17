@@ -13,7 +13,7 @@ By default, an AppImage and a .deb archive will be built:
 ```bash
 git clone --recursive https://github.com/RasmusAntons/sable-electron.git
 cd sable-electron
-fnm use $(cat sable/.node-version)
+fnm use 26.x
 pnpm i
 pnpm run build
 ```
