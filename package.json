@@ -2,6 +2,7 @@
   "name": "sable-electron",
   "version": "0.0.1",
   "description": "Electron wrapper for the Sable matrix client",
+  "homepage": "https://git.3po.ch/owl/sable-electron",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
